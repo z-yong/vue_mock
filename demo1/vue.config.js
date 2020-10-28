@@ -32,7 +32,7 @@ module.exports = {
     resolve: {
       alias: {
         '@': resolve('src'),
-        '@view': resolve('src/view'),
+        '@view': resolve('src/views'),
         '@component': resolve('src/components'),
         '@assets': resolve('src/assets'),
       }
