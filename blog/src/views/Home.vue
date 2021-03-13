@@ -1,6 +1,13 @@
 <template>
   <div class="home">
-    <Timeline />
+    <Suspense>
+      <template #default>
+        <Timeline />
+      </template>
+      <template #fallback>
+        <progress></progress>
+      </template>
+    </Suspense>
   </div>
 </template>
 
@@ -13,11 +20,14 @@ export default defineComponent({
   components: {
     Timeline,
   },
-  setup(props, context) {
+  setup() {
     const periods: Period[] = ["今天", "本周", "本月"];
     const activeName = "0";
-    function handleClick() {}
-    return { periods, activeName, handleClick };
+    return { periods, activeName };
   },
 });
+/**
+ * Suspense   延时加载   当组件setup函数使用到async时  必须使用
+ */
 </script>
+

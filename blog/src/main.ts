@@ -8,6 +8,12 @@ import './assets/css/reset.css'
 import './assets/css/common.css'
 
 const app = createApp(App)
+
+app.config.globalProperties.$api = () => {
+  console.log('调用了全局api')
+}
+
+
 app.use(ElementPlus)
 app.use(router)
 app.mount('#app')
