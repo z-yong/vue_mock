@@ -1,5 +1,6 @@
 import { Post } from '@/types';
 import { reactive } from '@vue/reactivity';
+import { today, thisWeek, thisMounth } from "@/mock";
 
 interface PostsState {
   ids: string[];
@@ -14,8 +15,16 @@ interface State {
 
 const initialPostsState = (): PostsState => {
   return {
-    ids: [],
-    all: {},
+    ids: [
+      today.id.toString(),
+      thisWeek.id.toString(),
+      thisMounth.id.toString(),
+    ],
+    all: {
+      [today.id]: today,
+      [thisWeek.id]: thisWeek,
+      [thisMounth.id]: thisMounth
+    },
     loaded: false
   }
 }

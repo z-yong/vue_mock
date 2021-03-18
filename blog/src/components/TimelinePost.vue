@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <p>{{ post.createTime.format('yyyy-MM-dd') }}</p>
+  <div class="py-1">
+    <p class="pb-1">{{ post.createTime.format('yyyy-MM-dd') }}</p>
+    <p>{{ post.title }}</p>
   </div>
 </template>
 

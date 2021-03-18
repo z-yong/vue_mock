@@ -5,20 +5,28 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "dev:dev-edu": "vue-cli-service serve",
+    "test:test-edu": "vue-cli-service build --mode production",
+    "build:build-edu": "vue-cli-service build --mode production",
     "test:unit": "vue-cli-service test:unit",
     "lint": "eslint --fix --ext .js,.vue src"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.33",
     "fork-ts-checker-webpack-plugin": "^5.2.1",
     "moment": "^2.29.1",
+    "amfe-flexible": "^2.2.1",
+    "postcss-pxtorem": "^4.0.1",
+    "vant": "^3.0.9",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
     "@types/moment": "^2.13.0",
+    "@types/node": "^14.14.35",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -29,11 +37,15 @@
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "^2.0.0-0",
+    "compression-webpack-plugin": "^5.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
+    "fork-ts-checker-webpack-plugin": "^5.2.1",
     "typescript": "~3.9.3",
     "vue-jest": "^5.0.0-0",
     "vue-loader-v16": "^16.0.0-beta.5.4",
-    "fork-ts-checker-webpack-plugin": "^5.2.1"
+    "node-sass": "^4.12.0",
+    "postcss-pxtorem": "^4.0.1",
+    "autoprefixer": "^8.2.0"
   }
 }

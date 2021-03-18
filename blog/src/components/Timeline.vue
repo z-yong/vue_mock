@@ -7,7 +7,6 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-
     <div class="text-center">
       <div v-for="(post, index) in posts" :key="index">
         <TimelinePost :post="post" />
@@ -18,18 +17,12 @@
 
 <script lang="ts">
 // toRefs  解包
-import {
-  defineComponent,
-  getCurrentInstance,
-  onMounted,
-  ref,
-  watch,
-} from "vue";
-import { ElLoading } from "element-plus";
+import { computed, defineComponent, ref } from "vue";
 import { Period, Post } from "@/types";
-import { today, thisWeek, thisMounth } from "@/mock";
 import moment from "moment";
 import store from "@/store";
+import { get } from "@/util/http";
+import { Toast } from "vant";
 
 import TimelinePost from "./TimelinePost.vue";
 
@@ -38,46 +31,59 @@ export default defineComponent({
   components: {
     TimelinePost,
   },
-  async setup(props, context) {
+  async setup() {
     const periods: Period[] = ["今天", "本周", "本月"];
     const activeName = ref<string>("0");
-    const posts = ref<Post[]>([today]);
-    watch(
-      () => activeName.value,
-      (val) => {
-        posts.value = [today, thisWeek, thisMounth].filter((post) => {
-          if (
-            val == "0" &&
-            post.createTime.isAfter(moment().subtract(1, "days"))
-          ) {
-            return true;
-          } else if (
-            val == "1" &&
-            post.createTime.isAfter(moment().subtract(1, "weeks"))
-          ) {
-            return true;
-          } else if (
-            val == "2" &&
-            post.createTime.isAfter(moment().subtract(1, "months"))
-          ) {
-            return true;
-          }
-          return false;
-        });
-      }
-    );
-    const loading = ElLoading.service({
-      lock: true,
-      text: "Loading",
-      spinner: "el-icon-loading",
-      background: "rgba(0, 0, 0, 0.7)",
-    });
-    setTimeout(() => {
-      loading.close();
-    }, 2000);
-    console.log("store", store);
 
+    const allPosts = store.getState().posts.ids.reduce<Post[]>((list, id) => {
+      const post = store.getState().posts.all[id];
+      return list.concat(post);
+    }, []);
+    // const allPosts = [];
+    // for (const key in store.getState().posts.all) {
+    //   allPosts.push(store.getState().posts.all[key]);
+    // }
+
+    const posts = computed(() =>
+      allPosts.filter((post) => {
+        if (
+          activeName.value == "0" &&
+          post.createTime.isAfter(moment().subtract(1, "days"))
+        ) {
+          return true;
+        } else if (
+          activeName.value == "1" &&
+          post.createTime.isAfter(moment().subtract(1, "weeks"))
+        ) {
+          return true;
+        } else if (
+          activeName.value == "2" &&
+          post.createTime.isAfter(moment().subtract(1, "months"))
+        ) {
+          return true;
+        }
+        return false;
+      })
+    );
+    get(
+      "/wechat/share/shareCourse",
+      { courseId: "1366200410599464960" },
+      { loading: true }
+    ).then((res) => {
+      Toast("666");
+    });
     return { periods, activeName, posts };
+  },
+  mounted() {
+    // this.$options
   },
 });
 </script>
+
+<style>
+.el-tabs__item {
+  width: 150px;
+  text-align: center;
+  font-size: 16px;
+}
+</style>

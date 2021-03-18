@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Navbar />
     <Suspense>
       <template #default>
         <Timeline />
